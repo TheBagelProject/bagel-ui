@@ -1,0 +1,56 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+.next/
+
+# Vercel deployment
+.vercel/
+
+# Turbo repo build cache
+.turbo/
+
+# Environment variables
+.env
+.env.*
+.dev.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VSCode settings
+.vscode/
+
+# Coverage
+coverage/
+
+# Misc
+*.tgz
+.eslintcache
+.npm
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Docker
+docker-compose.dev.yml
+docker-compose.yml
+DOCKER.md
+Dockerfile.dev
+
+# Github Actions
+ACTIONS.md

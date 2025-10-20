@@ -1,0 +1,256 @@
+# TERMS AND CONDITIONS
+
+**Last Updated: October 21, 2025**
+
+## 1. ACCEPTANCE OF TERMS
+
+These Terms and Conditions ("Terms") govern your use of Bagel (the "Software"), an open-source infrastructure deployment platform. By downloading, installing, accessing, or using the Software, you ("User" or "you") agree to be bound by these Terms. If you do not agree to these Terms, you must not use the Software.
+
+Bagel is provided by [Your Legal Entity Name] ("Company," "we," "us," or "our").
+
+## 2. LICENSE AND OPEN SOURCE
+
+### 2.1 License Grant
+The Software is licensed under the GNU Affero General Public License v3.0 ("AGPL-3.0"). Your use of the Software is subject to the terms of the AGPL-3.0, which is incorporated herein by reference. The full text of the AGPL-3.0 is available at: https://www.gnu.org/licenses/agpl-3.0.html
+
+### 2.2 License Compliance
+You acknowledge and agree that:
+- The Software is provided under the AGPL-3.0 license terms
+- You must comply with all obligations under the AGPL-3.0
+- Any modifications or derivative works must also be licensed under AGPL-3.0
+- If you run a modified version of the Software on a server and let other users communicate with it, you must provide those users with access to the modified source code
+
+### 2.3 Open Source Nature
+The Software is open source. We make no guarantees regarding the availability, functionality, or support of the Software. You use the Software entirely at your own risk.
+
+## 3. SELF-HOSTED AND LOCAL DEPLOYMENT
+
+### 3.1 Local Deployment
+Bagel is designed to be self-hosted and deployed locally on your own infrastructure. You are solely responsible for:
+- The installation, configuration, and operation of the Software
+- Your infrastructure, servers, networks, and computing resources
+- All data processed, stored, or transmitted through your deployment
+- Security of your deployment environment
+- Compliance with all applicable laws in your use of the Software
+
+### 3.2 No Company Infrastructure
+We do NOT provide hosting services, cloud infrastructure, or managed services. The Software runs entirely on your infrastructure.
+
+## 4. NO DATA COLLECTION OR STORAGE BY COMPANY
+
+### 4.1 Data Responsibility
+**CRITICAL: We do NOT collect, access, store, process, or transmit any of your data, including but not limited to:**
+- Infrastructure code or Terraform configurations
+- GitHub credentials or repository data
+- Deployment logs or metadata
+- Usage analytics or telemetry
+- Personal information or user data
+- Any data processed by your instance of the Software
+
+### 4.2 Your Data Control
+All data remains exclusively within your local environment and infrastructure. You have complete control and ownership of all data. We have no access to, visibility into, or responsibility for any data in your deployment.
+
+### 4.3 Third-Party Integrations
+If you choose to integrate the Software with third-party services (e.g., GitHub, cloud providers), your use of those services is governed by their respective terms of service and privacy policies. We are not responsible for any third-party services or their data handling practices.
+
+## 5. DISCLAIMER OF WARRANTIES
+
+### 5.1 "AS IS" Provision
+THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO:
+- MERCHANTABILITY
+- FITNESS FOR A PARTICULAR PURPOSE
+- NON-INFRINGEMENT
+- SECURITY
+- ACCURACY
+- RELIABILITY
+- AVAILABILITY
+- ERROR-FREE OPERATION
+
+### 5.2 No Guarantees
+WE MAKE NO WARRANTY THAT:
+- The Software will meet your requirements
+- The Software will be uninterrupted, timely, secure, or error-free
+- Results obtained from use of the Software will be accurate or reliable
+- Any errors in the Software will be corrected
+- The Software is compatible with your systems or infrastructure
+
+### 5.3 Risk Acknowledgment
+You acknowledge that:
+- Use of the Software is entirely at your own risk
+- You are solely responsible for any damage to your systems or data
+- Infrastructure deployment carries inherent risks including data loss, service disruption, and security vulnerabilities
+- We provide no guarantee of support, maintenance, or updates
+
+## 6. LIMITATION OF LIABILITY
+
+### 6.1 Maximum Liability
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL THE COMPANY, ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, OR CONTRIBUTORS BE LIABLE FOR ANY:
+- INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES
+- LOSS OF PROFITS, REVENUE, DATA, OR USE
+- BUSINESS INTERRUPTION
+- COST OF SUBSTITUTE SERVICES
+- SECURITY BREACHES OR UNAUTHORIZED ACCESS
+- INFRASTRUCTURE FAILURES OR OUTAGES
+- DATA LOSS OR CORRUPTION
+
+ARISING OUT OF OR RELATED TO THESE TERMS OR USE OF THE SOFTWARE, WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), OR ANY OTHER LEGAL THEORY, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+### 6.2 Zero Liability Cap
+BECAUSE WE PROVIDE NO HOSTING, SERVICES, OR INFRASTRUCTURE AND COLLECT NO DATA OR FEES, OUR TOTAL AGGREGATE LIABILITY ARISING OUT OF OR RELATED TO THESE TERMS OR THE SOFTWARE SHALL BE ZERO ($0).
+
+### 6.3 Essential Purpose
+You acknowledge that this limitation of liability is an essential element of the agreement between you and us, and that we would not provide the Software without these limitations.
+
+## 7. INDEMNIFICATION
+
+You agree to indemnify, defend, and hold harmless the Company, its affiliates, and their respective officers, directors, employees, agents, and contributors from and against any and all claims, liabilities, damages, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising from:
+- Your use or misuse of the Software
+- Your violation of these Terms
+- Your violation of any third-party rights
+- Your violation of applicable laws or regulations
+- Your deployment, configuration, or operation of the Software
+- Any data loss, security breach, or system failure in your environment
+- Your infrastructure or systems
+- Any modifications you make to the Software
+
+## 8. USER RESPONSIBILITIES
+
+### 8.1 Compliance
+You are solely responsible for:
+- Ensuring your use of the Software complies with all applicable laws, regulations, and industry standards
+- Obtaining all necessary permissions, licenses, and approvals
+- Implementing appropriate security measures
+- Backing up your data and configurations
+- Testing deployments in non-production environments
+- Monitoring and maintaining your deployment
+
+### 8.2 Security
+You acknowledge that infrastructure deployment and automation tools can pose security risks. You are solely responsible for:
+- Securing your deployment environment
+- Managing access controls and credentials
+- Implementing network security measures
+- Regularly updating and patching systems
+- Conducting security audits and assessments
+
+### 8.3 Prohibited Uses
+You agree NOT to:
+- Use the Software for any illegal or unauthorized purpose
+- Use the Software in a manner that could damage, disable, or impair the Software
+- Attempt to gain unauthorized access to any systems or networks through the Software
+- Violate any applicable laws or regulations
+- Infringe upon any third-party intellectual property rights
+- Remove or alter any copyright, trademark, or proprietary notices
+
+## 9. INTELLECTUAL PROPERTY
+
+### 9.1 Open Source License
+All intellectual property rights in the Software are governed by the AGPL-3.0 license. We do not claim exclusive ownership, but rather license the Software under open-source terms.
+
+### 9.2 Trademarks
+"Bagel" and associated marks are trademarks owned by the Company. Your use of these marks must comply with applicable trademark law and our trademark usage guidelines.
+
+### 9.3 Contributions
+If you contribute code, documentation, or other materials to the Software, you grant us and all users a perpetual, worldwide, non-exclusive, royalty-free license under the AGPL-3.0.
+
+## 10. NO SUPPORT OR MAINTENANCE
+
+### 10.1 No Obligation
+We have no obligation to provide:
+- Technical support or customer service
+- Maintenance, updates, or patches
+- Bug fixes or error correction
+- Documentation or training
+- Compatibility updates
+- Security updates
+
+### 10.2 Community Support
+Support may be available through community channels (forums, GitHub issues, etc.), but we make no guarantees regarding response times, resolution, or availability of community support.
+
+## 11. MODIFICATIONS TO TERMS
+
+### 11.1 Right to Modify
+We reserve the right to modify these Terms at any time. We will indicate the "Last Updated" date at the top of these Terms. Changes become effective immediately upon posting.
+
+### 11.2 Continued Use
+Your continued use of the Software after changes are posted constitutes acceptance of the modified Terms. If you do not agree to modified Terms, you must stop using the Software.
+
+### 11.3 Notification
+We may (but are not obligated to) notify users of material changes through GitHub, our website, or other reasonable means.
+
+## 12. TERMINATION
+
+### 12.1 Termination Rights
+These Terms remain in effect until terminated. You may terminate these Terms by discontinuing use of the Software and destroying all copies.
+
+### 12.2 Effect of Termination
+Upon termination:
+- Your right to use the Software ceases immediately
+- You must destroy all copies of the Software in your possession
+- Sections 4, 5, 6, 7, 9, 13, 14, and 15 survive termination
+
+### 12.3 License Revocation
+While the AGPL-3.0 license grant is generally irrevocable, we may terminate your rights under these Terms for breach, which may affect your ability to use our trademarks and participate in our community.
+
+## 13. THIRD-PARTY COMPONENTS
+
+### 13.1 Dependencies
+The Software may include or depend on third-party open-source components, each governed by their respective licenses. You are responsible for complying with all applicable third-party licenses.
+
+### 13.2 No Liability
+We are not responsible for any third-party components, their functionality, security, or licensing. Your use of third-party components is at your own risk.
+
+## 14. EXPORT COMPLIANCE
+
+You agree to comply with all applicable export and import laws and regulations. You represent that you are not located in, under the control of, or a national or resident of any country subject to comprehensive sanctions, and that you are not on any government list of prohibited or restricted parties.
+
+## 15. GENERAL PROVISIONS
+
+### 15.1 Governing Law
+These Terms are governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to conflict of law principles.
+
+### 15.2 Dispute Resolution
+Any disputes arising from these Terms or the Software shall be resolved exclusively in the courts of [Your Jurisdiction]. You consent to the personal jurisdiction of such courts.
+
+### 15.3 Severability
+If any provision of these Terms is found to be unenforceable or invalid, that provision shall be limited or eliminated to the minimum extent necessary, and the remaining provisions shall remain in full force and effect.
+
+### 15.4 No Waiver
+Our failure to enforce any right or provision of these Terms shall not constitute a waiver of such right or provision.
+
+### 15.5 Entire Agreement
+These Terms, together with the AGPL-3.0 license, constitute the entire agreement between you and us regarding the Software and supersede all prior agreements and understandings.
+
+### 15.6 Assignment
+You may not assign or transfer these Terms or any rights hereunder without our prior written consent. We may assign these Terms without restriction.
+
+### 15.7 No Agency
+These Terms do not create any agency, partnership, joint venture, or employment relationship between you and us.
+
+### 15.8 Force Majeure
+We shall not be liable for any failure or delay in performance due to causes beyond our reasonable control.
+
+### 15.9 Language
+These Terms are written in English. Any translations are provided for convenience only, and the English version shall control in case of conflict.
+
+## 16. CONTACT INFORMATION
+
+For questions about these Terms, please contact us at:
+
+[Your Company Name]  
+[Your Address]  
+[Your Email]  
+[Your Website]
+
+## 17. ACKNOWLEDGMENT
+
+BY USING THE SOFTWARE, YOU ACKNOWLEDGE THAT:
+- You have read and understood these Terms
+- You agree to be bound by these Terms
+- You understand the Software is provided "AS IS" with no warranties
+- You understand we have NO access to your data and NO liability for your use
+- You are solely responsible for your deployment and use of the Software
+- You accept all risks associated with using infrastructure deployment tools
+
+---
+
+**Copyright © [Year] [Your Company Name]. Licensed under AGPL-3.0.**
