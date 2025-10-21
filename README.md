@@ -17,7 +17,7 @@
 
 ---
 
-## 🌟 What is Bagel UI?
+## 🌟 What is Bagel UI ?
 
 **Bagel UI is the modern, intuitive frontend interface for the Bagel platform** - built with Next.js, TypeScript, and a robust set of libraries for seamless cloud automation, project/space management, and DevOps workflows.
 
