@@ -187,7 +187,7 @@ export default function SpacesPage() {
             <input
               type="text"
               placeholder="Search Spaces"
-              className="w-full bg-[#09090B] border border-[#27272A] rounded-lg px-4 py-2 text-sm placeholder-gray-400 focus:outline-none"
+              className="w-full bg-[#09090B] border border-[#27272A] rounded-lg px-4 py-2 text-sm text-gray-400 placeholder-gray-400 focus:outline-none"
               value={search}
               onChange={e => setSearch(e.target.value)}
             />

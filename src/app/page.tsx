@@ -75,11 +75,11 @@ export default function AuthForm() {
         </div>
 
         {/* Heading Below Image */}
-        <h1 className="mt-6 text-left text-xl md:text-xl lg:text-4xl font-bold text-neutral-gray dark:text-cream leading-tight">
+        <h1 className="mt-6 text-left text-xl md:text-xl lg:text-4xl font-bold text-white dark:text-cream leading-tight">
           Provision Cloud Infrastructure,{" "}
           <span className="text-[#F5CB5C]">The Easy Way</span>
         </h1>
-        <p className="mt-4 text-md md:text-md text-neutral-gray/80 dark:text-cream/80 leading-relaxed text-left max-w-prose">
+        <p className="mt-4 text-md md:text-md text-gray-400 dark:text-cream/80 leading-relaxed text-left max-w-prose">
           Bagel - the easiest way for developers to manage Terraform infrastructure with confidence.
         </p>
       </div>

@@ -265,10 +265,8 @@ export default function TermsAndConditions() {
               For questions about these Terms, please contact us at:
             </p>
             <div className="mt-2 text-[#CD9C20]">
-              <p>[Your Company Name]</p>
-              <p>[Your Address]</p>
-              <p>[Your Email]</p>
-              <p>[Your Website]</p>
+              <p>The Bagel Project</p>
+              <p>https://thebagelproject.dev/</p>
             </div>
           </section>
 
