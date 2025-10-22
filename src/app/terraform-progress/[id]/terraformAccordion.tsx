@@ -119,13 +119,15 @@ const renderColoredMessage = (message?: string, stepName?: string) => {
 }
 
 interface TerraformAccordionsProps {
+  deployments?: Deployment[];
   deployment: Deployment | null;
   projectId?: string;
   spaceId?: string;
 }
 
-const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployment, projectId, spaceId }) => {
-  const [steps, setSteps] = useState<DeploymentStep[]>(deployment?.steps || []);
+const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployments, deployment, projectId, spaceId }) => {
+  // keep steps empty initially; we'll populate from resolvedDeployment below
+  const [steps, setSteps] = useState<DeploymentStep[]>([]);
   const [loadingSteps, setLoadingSteps] = useState<Record<string, boolean>>({});
   const [initDeploymentId, setInitDeploymentId] = useState<string | null>(null);
   const [initDeploymentName, setInitDeploymentName] = useState<string | null>(null);
@@ -185,9 +187,9 @@ const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployment, p
     try {
       if (stepName === "init") {
         response = await terraformInit(
-          (deployment?.projectId ?? projectId) || "",
-          (deployment?.spaceId ?? spaceId) || "",
-          (deployment?.deploymentId ?? deployment?._id) || null
+          (resolvedDeployment?.projectId ?? projectId) || "",
+          (resolvedDeployment?.spaceId ?? spaceId) || "",
+          (resolvedDeployment?.deploymentId ?? resolvedDeployment?._id) || null
         );
         if (response && typeof response === "object" && "deploymentId" in response) {
           deploymentIdFromResponse = response.deploymentId;
@@ -201,21 +203,21 @@ const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployment, p
         }
       } else if (stepName === "plan") {
         response = await terraformPlan(
-          (deployment?.projectId ?? projectId) || "",
-          (deployment?.spaceId ?? spaceId) || "",
-          deploymentIdOverride || initDeploymentId || (deployment?.deploymentId ?? deployment?._id) || ""
+          (resolvedDeployment?.projectId ?? projectId) || "",
+          (resolvedDeployment?.spaceId ?? spaceId) || "",
+          deploymentIdOverride || initDeploymentId || (resolvedDeployment?.deploymentId ?? resolvedDeployment?._id) || ""
         );
       } else if (stepName === "apply") {
         response = await terraformApply(
-          (deployment?.projectId ?? projectId) || "",
-          (deployment?.spaceId ?? spaceId) || "",
-          deploymentIdOverride || initDeploymentId || (deployment?.deploymentId ?? deployment?._id) || ""
+          (resolvedDeployment?.projectId ?? projectId) || "",
+          (resolvedDeployment?.spaceId ?? spaceId) || "",
+          deploymentIdOverride || initDeploymentId || (resolvedDeployment?.deploymentId ?? resolvedDeployment?._id) || ""
         );
       } else if (stepName === "destroy") {
         response = await terraformDestroy(
-          (deployment?.projectId ?? projectId) || "",
-          (deployment?.spaceId ?? spaceId) || "",
-          deploymentIdOverride || initDeploymentId || (deployment?.deploymentId ?? deployment?._id) || ""
+          (resolvedDeployment?.projectId ?? projectId) || "",
+          (resolvedDeployment?.spaceId ?? spaceId) || "",
+          deploymentIdOverride || initDeploymentId || (resolvedDeployment?.deploymentId ?? resolvedDeployment?._id) || ""
         );
       } else throw new Error("Unknown step");
 
@@ -281,9 +283,7 @@ const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployment, p
 
   useEffect(() => {
     setIsClient(true);
-    if (deployment) {
-      setSteps(deployment.steps);
-    }
+    // steps are set from resolvedDeployment in the effect below
     const interval = setInterval(() => {
       setDots((prev) => {
         if (prev === "....") return ".";
@@ -296,6 +296,53 @@ const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployment, p
 
     return () => clearInterval(interval);
   }, []);
+
+  // resolvedDeployment: if `deployment` prop is provided use it, otherwise pick from `deployments` prop
+  const [resolvedDeployment, setResolvedDeployment] = useState<Deployment | null>(deployment ?? null);
+
+  useEffect(() => {
+    if (deployment) {
+      setResolvedDeployment(deployment);
+      return;
+    }
+
+    if (!deployments || deployments.length === 0) {
+      setResolvedDeployment(null);
+      return;
+    }
+
+    // filter by projectId & spaceId if provided
+    const matches = deployments.filter(
+      (d) => (projectId ? d.projectId === projectId : true) && (spaceId ? d.spaceId === spaceId : true)
+    );
+    if (matches.length === 0) {
+      setResolvedDeployment(null);
+      return;
+    }
+
+    // pick latest by updatedAt (fallback to createdAt)
+    const latest = matches.reduce((a, b) => {
+      const aDate = new Date((a.updatedAt ?? a.createdAt) as string).getTime();
+      const bDate = new Date((b.updatedAt ?? b.createdAt) as string).getTime();
+      return aDate >= bDate ? a : b;
+    });
+    setResolvedDeployment(latest);
+  }, [deployment, deployments, projectId, spaceId]);
+
+  // populate steps and meta when resolvedDeployment changes
+  useEffect(() => {
+    if (resolvedDeployment) {
+      setSteps(resolvedDeployment.steps || []);
+      setInitDeploymentId(resolvedDeployment.deploymentId ?? null);
+      setInitDeploymentName(resolvedDeployment.deploymentName ?? null);
+      setStartedAt(resolvedDeployment.startedAt ?? null);
+    } else {
+      setSteps([]);
+      setInitDeploymentId(null);
+      setInitDeploymentName(null);
+      setStartedAt(null);
+    }
+  }, [resolvedDeployment]);
 
   const handleApprove = async () => {
     // mark that an action was taken for this plan to disable further approve/deny until a new plan arrives
@@ -411,7 +458,7 @@ const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployment, p
   return (
     <div className="w-full h-full max-h-screen mx-auto p-6 overflow-hidden flex flex-col">
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-white text-2xl font-semibold">{deployment?.deploymentName || initDeploymentName || "New Deployment"}</h2>
+        <h2 className="text-white text-2xl font-semibold">{resolvedDeployment?.deploymentName || initDeploymentName || "New Deployment"}</h2>
         <div className="ml-4 flex items-center gap-2">
           {/* Move Destroy button next to Deploy button (left side) */}
           {applyStep?.stepStatus === "successful" && (
@@ -444,13 +491,13 @@ const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployment, p
 
       <div className="flex items-center gap-4 mb-5">
         <div className="flex items-center justify-start gap-2 bg-[#09090B] border border-[#27272A] rounded-md px-4 py-2 text-gray-300 text-sm">
-          <span>{deployment?.projectId || projectId}</span>
+          <span>{resolvedDeployment?.projectId || projectId}</span>
           <span>•</span>
-          <span>Deployment ID: {deployment?.deploymentId || initDeploymentId || "_____-_____-_____-_____"}</span>
+          <span>Deployment ID: {resolvedDeployment?.deploymentId || initDeploymentId || "_____-_____-_____-_____"}</span>
           <span>•</span>
           <span>
-            Started: {(startedAt || deployment?.startedAt)
-              ? new Date(startedAt ?? deployment?.startedAt ?? "").toISOString().replace('T', ' ').slice(0, -5)
+            Started: {(startedAt || resolvedDeployment?.startedAt)
+              ? new Date(startedAt ?? resolvedDeployment?.startedAt ?? "").toISOString().replace('T', ' ').slice(0, -5)
               : "N/A"}
           </span>
         </div>
@@ -577,7 +624,7 @@ const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployment, p
         isOpen={isDestroyModalOpen}
         onClose={handleDestroyCancel}
         onConfirm={handleDestroyConfirm}
-        deploymentName={deployment?.deploymentName || initDeploymentName || "New Deployment"}
+        deploymentName={resolvedDeployment?.deploymentName || initDeploymentName || "New Deployment"}
         isLoading={loadingSteps["destroy"]}
       />
     </div>
