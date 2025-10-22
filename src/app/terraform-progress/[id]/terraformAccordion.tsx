@@ -137,6 +137,9 @@ const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployments, 
   const [isDestroyModalOpen, setIsDestroyModalOpen] = useState(false);
   const [showDestroyAccordion, setShowDestroyAccordion] = useState(false);
   const [isDestroyClicked, setIsDestroyClicked] = useState(false);
+  // When plan was cancelled, hide plan & apply by default.
+  // showApplyOnly: when true (user clicked Deploy/Redeploy) show only the apply accordion (3rd) even if plan is hidden.
+  const [showApplyOnly, setShowApplyOnly] = useState(false);
 
   // Prevent multiple approve/deny clicks for the same plan until a new plan is produced
   const [planActionTaken, setPlanActionTaken] = useState(false);
@@ -344,6 +347,12 @@ const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployments, 
     }
   }, [resolvedDeployment]);
 
+  // clear the "show only apply" mode once an apply step appears
+  useEffect(() => {
+    const applyStep = steps.find((s) => s.step === "apply");
+    if (applyStep) setShowApplyOnly(false);
+  }, [steps]);
+
   const handleApprove = async () => {
     // mark that an action was taken for this plan to disable further approve/deny until a new plan arrives
     if (planActionTaken) return;
@@ -475,10 +484,12 @@ const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployments, 
                Destroy
              </PrimaryButton>
            )}
-          {!deployment && (
+          {!resolvedDeployment && (
             <PrimaryButton
               onClick={() => {
                 setStartedAt(new Date().toISOString());
+                // user explicitly requested a redeploy/deploy -> allow showing apply accordion
+                setShowApplyOnly(true);
                 runStep("init");
               }}
               className="w-auto px-6 py-2 text-sm font-semibold cursor-pointer"
@@ -501,13 +512,16 @@ const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployments, 
               : "N/A"}
           </span>
         </div>
-        <button
-          onClick={handleReload}
-          className="w-8 h-8 bg-[#CD9C20] hover:bg-[#E5B040] rounded-md flex items-center justify-center transition-colors cursor-pointer"
-          title="Reload Deployment"
-        >
-          <RotateCcw size={16} color="black" />
-        </button>
+        {/* hide reload button when a deployment prop is provided (past deployment view) */}
+        {!deployment && (
+          <button
+            onClick={handleReload}
+            className="w-8 h-8 bg-[#CD9C20] hover:bg-[#E5B040] rounded-md flex items-center justify-center transition-colors cursor-pointer"
+            title="Re-Deploy"
+          >
+            <RotateCcw size={16} color="black" />
+          </button>
+        )}
       </div>
 
       <div className="w-full mx-auto mt-4 rounded-md bg-[#09090B] flex-1 overflow-auto">
@@ -519,10 +533,26 @@ const TerraformAccordions: React.FC<TerraformAccordionsProps> = ({ deployments, 
           const planStep = steps.find((s) => s.step === "plan");
           // const applyStep = steps.find((s) => s.step === "apply"); // removed duplicate
 
-          // show destroy accordion when user clicked Destroy OR when a destroy step already exists
-          if (stepName === "destroy" && !showDestroyAccordion && !step) {
+          // If any previous step failed, hide this and all subsequent steps.
+          const firstFailedIndex = stepNames.findIndex((name) => {
+            const s = steps.find((st) => st.step === name);
+            return s?.stepStatus === "failed";
+          });
+          const currentIndex = stepNames.indexOf(stepName);
+          if (firstFailedIndex !== -1 && currentIndex > firstFailedIndex) {
             return null;
           }
+          
+           // If plan was cancelled: hide apply accordion unless user requested "showApplyOnly"
+           // keep plan accordion visible so user can see cancelled details
+           if (planStep?.stepStatus === "cancelled") {
+             if (stepName === "apply" && !showApplyOnly && !step) return null;
+           }
+           
+            // show destroy accordion when user clicked Destroy OR when a destroy step already exists
+            if (stepName === "destroy" && !showDestroyAccordion && !step) {
+              return null;
+            }
 
           return (
             <AccordionItem
