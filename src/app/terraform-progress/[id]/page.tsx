@@ -7,6 +7,7 @@ import PrivateHeader from "@/components/common/PrivateHeader";
 import TerraformAccordions from "./terraformAccordion";
 import { RootState, AppDispatch } from "@/redux/store";
 import { fetchDeployments } from "@/redux/slice/Deployements/deploymentSlice";
+import AnimatedLogo from "@/components/Template/logoAnimation";
 
 const DashboardPage: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
@@ -44,7 +45,21 @@ const DashboardPage: React.FC = () => {
   const deployment = deployments.find((d) => d._id === id);
 
   if (!isClient || !id) return null;
-  if (loading) return <div className="text-white p-6">Loading...</div>;
+  // if (loading) return <div className="text-white p-6">Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex h-screen w-screen">
+        <Sidebar />
+        <div className="flex flex-col flex-1 h-screen">
+          <PrivateHeader />
+          <div className="flex-1 flex flex-col items-center justify-center bg-black">
+            <div className="mb-4"><AnimatedLogo /></div>
+            <div className="text-white">Loading Deployments...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   if (error) return <div className="text-red-500 p-6">{error}</div>;
 
   return (
@@ -62,6 +77,7 @@ const DashboardPage: React.FC = () => {
           {/* Main Content Area */}
           <div className="flex-1 overflow-auto bg-[#09090B]">
             <TerraformAccordions
+              deployments={deployments}
               deployment={deployment ?? null}
               projectId={deployment?.projectId || id || ""}
               spaceId={spaceId}
